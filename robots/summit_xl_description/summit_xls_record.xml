@@ -1,0 +1,16 @@
+<mujoco model="summit_xls">
+    <include file="assets/assets.xml"/>
+    
+    <worldbody>
+        <!--/原点-->
+        <body name="trace0" mocap="true">
+        <site name="t0" type="sphere" size="0.03" rgba="1 0 0 0.5"/>
+        </body>
+
+
+        <include file="assets/basic_scene.xml" />    
+        <include file="assets/summit_xls.urdf.xml" />    
+    </worldbody>
+
+    <include file = 'assets/summit_xls_actuator.xml' />
+</mujoco>

@@ -1,0 +1,95 @@
+<mujoco model="summit_xls">
+
+    <compiler angle="radian" autolimits="true" meshdir = "./meshes"/>
+    <statistic meansize="0.767828" extent="17.3945" center="-1.30273 -0.281443 0.819464" />
+
+    <asset>
+        <texture name="texplane" type="2d" builtin="checker" rgb1=".2 .3 .4" rgb2=".1 0.2 0.3" width="512" height="512"/>
+        <material name="MatGnd" reflectance="0.5" texture="texplane" texrepeat="1 1" texuniform="true"/>
+    </asset>
+    
+    <asset>
+        <mesh name="summit_xls_chassis" file="bases/xls/summit_xls_chassis.stl" />
+        <mesh name="summit_xls_chapas_inox_tapas" file="bases/xls/summit_xls_chapas_inox_tapas.stl" />
+        <mesh name="robotnik_logo_chasis" file="bases/xls/robotnik_logo_chasis.stl" />
+        <mesh name="summit_xls_omni_wheel_1" file="wheels/omni_wheel_1.stl" />
+        <mesh name="summit_xls_omni_wheel_2" file="wheels/omni_wheel_2.stl" />
+        <mesh name="structure_hokuyo" file="structures/structure_hokuyo.stl" />
+    </asset>
+
+
+    
+    <worldbody>
+        <!--/原点-->
+        <body name="trace0" mocap="true">
+
+            <site name="t0" type="sphere" size="0.03" rgba="1 0 0 0.5"/>
+
+        </body>
+
+
+        <!--light and environment-->
+        <geom name="ground" pos="0 0 -0.01" rgba="0.25 0.26 0.25 1" size="12 12 2" type="plane" contype="1" conaffinity="1" />
+        <light cutoff="4.0" diffuse="1 1 1" dir="-0.9 -0.9 -2.5" directional="true" exponent="20" pos="0.9 0.9 2.5" specular="0 0 0" />
+
+
+        <!-- Summit XL Steel -->
+        <body name="base_footprint" pos="0 0 -0.009">
+            <joint type="free" stiffness="0" damping="0" frictionloss="0" armature="0"/>
+            
+            <!-- BASE_LINK -->
+            <body name="base" pos="0 0 0.127">
+                <inertial pos="0 0 0" quat="1 0 0 0" mass="125.0" diaginertia="1.391 6.853 6.125" />
+                <geom type="mesh" rgba="0 0 0 1" mesh="summit_xls_chassis" contype="1" conaffinity="0" group="1"/>
+
+
+                <!-- Wheels -->
+                <body name="front_right_wheel_intermediate_link" pos="0.2225 -0.2045 0">
+                    <inertial pos="0 0 0" quat="0.707107 0 0 0.707107" mass="6.5" diaginertia="0.0524193 0.0303095 0.0303095" />
+                    <joint name="front_right_wheel_rolling_joint" pos="0 0 0" axis="0 1 0" />
+                    <geom size="0.120 0.0435" quat="0.707107 0.707107 0 0" type="cylinder" rgba="0.2 0.2 0.2 0.5" contype="1" conaffinity="0" group="3" />
+                    <geom type="mesh" mesh="summit_xls_omni_wheel_2" contype="0" conaffinity="0" group="2" rgba="0.2 0.2 0.2 1"/>
+                
+
+                </body>
+
+                <body name="front_left_wheel_intermediate_link" pos="0.2225 0.2045 0">
+                    <inertial pos="0 0 0" quat="0.707107 0 0 0.707107" mass="6.5" diaginertia="0.0524193 0.0303095 0.0303095" />
+                    <joint name="front_left_wheel_rolling_joint" pos="0 0 0" axis="0 1 0" />
+                    <geom size="0.120 0.0435" quat="0.707107 0.707107 0 0" type="cylinder" rgba="0.2 0.2 0.2 0.5" contype="1" conaffinity="0" group="3"/>
+                    <geom type="mesh" mesh="summit_xls_omni_wheel_1" contype="0" conaffinity="0" group="2" rgba="0.2 0.2 0.2 1"/>
+
+
+                </body>
+
+                <body name="back_right_wheel_intermediate_link" pos="-0.2225 -0.2045 0">
+                    <inertial pos="0 0 0" quat="0.707107 0 0 0.707107" mass="6.5" diaginertia="0.0524193 0.0303095 0.0303095" />
+                    <joint name="back_right_wheel_rolling_joint" pos="0 0 0" axis="0 1 0" />
+                    <geom size="0.120 0.0435" quat="0.707107 0.707107 0 0" type="cylinder" rgba="0.2 0.2 0.2 0.5" contype="1" conaffinity="0" group="3"/>
+                    <geom type="mesh" mesh="summit_xls_omni_wheel_1" contype="0" conaffinity="0" group="2" rgba="0.2 0.2 0.2 1"/>
+
+                </body>
+
+                <body name="back_left_wheel_intermediate_link" pos="-0.2225 0.2045 0">
+                    <inertial pos="0 0 0" quat="0.707107 0 0 0.707107" mass="6.5" diaginertia="0.0524193 0.0303095 0.0303095" />
+                    <joint name="back_left_wheel_rolling_joint" pos="0 0 0" axis="0 1 0" />
+                    <geom size="0.120 0.0435" quat="0.707107 0.707107 0 0" type="cylinder" rgba="0.2 0.2 0.2 0.5" contype="1" conaffinity="0" group="3"/>
+                    <geom type="mesh" mesh="summit_xls_omni_wheel_2" contype="0" conaffinity="0" group="2" rgba="0.2 0.2 0.2 1"/>
+
+
+                </body>
+        
+            </body>
+
+        </body>
+
+    </worldbody>
+
+    <actuator>
+        <motor name="front_right_wheel_rolling_joint" joint="front_right_wheel_rolling_joint" ctrlrange="-10 10"/>
+        <motor name="front_left_wheel_rolling_joint"  joint="front_left_wheel_rolling_joint"  ctrlrange="-10 10"/>
+        <motor name="back_right_wheel_rolling_joint"  joint="back_right_wheel_rolling_joint"  ctrlrange="-10 10"/>
+        <motor name="back_left_wheel_rolling_joint"   joint="back_left_wheel_rolling_joint"   ctrlrange="-10 10"/>
+    </actuator>
+
+</mujoco>
