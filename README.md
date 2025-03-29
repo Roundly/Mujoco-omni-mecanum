@@ -1,22 +1,11 @@
 # Mecanum Drive in Mujoco
-![mecanum_video](images/mecanum_motion.gif)
-
-
-This code implements the collision model of Mecanum wheels to mimic the actual driving behavior of wheels.
+Forked from [mujoco_mecanum by JunHeonYoon](https://github.com/JunHeonYoon/mujoco_mecanum), Thanks for Open Source!
 
 By using macro file, users can develop their robot model easily.
 
 - Mecamum wheel model (visual and collision) for Mujoco.
 - Python3 based [macro](wheel_code_gen.py)
 - Example code about SUMMIT-XL STEEL
-
-
-### Model Image
-| Collision Model                            | Visual Model                                 |  
-| ------------------------------------------ | -------------------------------------------- | 
-| ![mecanum_model](images/mecanum_model.png) | ![mecanum_visual](images/mecanum_visual.png) | 
-
-
 
 
 # Requirement
@@ -38,7 +27,7 @@ In [macro](wheel_code_gen.py) code, there are some parameters that can be custom
 python3 wheel_code_gen.py --link_name mecanum 
 ```
 
-After running this code, you can get `wheel.xml`. Using this, you can implement collision model of mecanum wheel.
+After running this code, you can get `wheel_example.xml`. Using this, you can implement collision model of mecanum wheel.
 
 
 # Example
@@ -66,6 +55,3 @@ Rather than using velocity, use force based actuator.
 </actuator>
 ```
 And in controller code, you can control wheel by PID controller like this [code](summit_test.py).
-
-# License
-`mujoco mecanum` is releasd under MIT license. Please see the [LICENSE](LICENSE) file for more information.
